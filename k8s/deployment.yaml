@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtgs-imps-payment-service
+  namespace: payments
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rtgs-imps-payment-service
+  template:
+    metadata:
+      labels:
+        app: rtgs-imps-payment-service
+    spec:
+      containers:
+        - name: app
+          image: rtgs-imps-payment-service:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: local
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: payment-service-secrets
+                  key: db-url
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: payment-service-secrets
+                  key: db-username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: payment-service-secrets
+                  key: db-password
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "host.docker.internal:9092"
+            - name: JWT_ISSUER_URI
+              valueFrom:
+                secretKeyRef:
+                  name: payment-service-secrets
+                  key: jwt-issuer-uri
+          readinessProbe:
+            httpGet: {path: /actuator/health/readiness, port: 8080}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /actuator/health/liveness, port: 8080}
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests: {cpu: "250m", memory: "512Mi"}
+            limits: {cpu: "1", memory: "1Gi"}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rtgs-imps-payment-service
+  namespace: payments
+spec:
+  selector:
+    app: rtgs-imps-payment-service
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP
