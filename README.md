@@ -77,3 +77,20 @@ Compose starts PostgreSQL and Kafka only; run the app via Maven or create a revi
 
 ## Next required implementation
 Read `docs/PRODUCTION_READINESS.md`. The next coding task should be a durable dispatcher with database locking and tests, then provider-specific adapter + status inquiry/reconciliation, not enabling mock transfers in production.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    Client[Client] --> API[Spring Boot REST API]
+    API --> Security[JWT Security]
+    Security --> Service[Payment Service]
+    Service --> DB[(PostgreSQL)]
+    DB --> Payment[Payment Record]
+    DB --> Outbox[Outbox Event]
+    Outbox --> Publisher[Outbox Publisher]
+    Publisher --> Kafka[(Kafka)]
+    Kafka --> Consumer[Payment Event Consumer]
+
+    Service -. "Future: durable dispatch + real bank adapter" .-> Bank[Bank / RTGS / IMPS Provider]
+```
