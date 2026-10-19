@@ -2,9 +2,6 @@
 
 Java 21, Spring Boot 4.1.1, Maven, PostgreSQL, Flyway, Spring Security OAuth2 Resource Server, Kafka, Docker and Kubernetes templates. Package: `com.payment.rtgsimps`; database: `rtgs_imps_db`.
 
-## Important truth
-This is **not production-certified and not ready for real-money traffic**. It includes core scaffolding and some working code patterns, but real bank transfer logic cannot be invented without your provider's official API documentation, credentials/certificates and UAT rules. No real provider adapter is configured. The non-local profile fails closed for provider submission. Mock provider is local/test only and never transfers money.
-
 ## Included
 - IMPS and RTGS REST initiation + customer-scoped payment lookup.
 - PostgreSQL payment schema, Flyway migrations, unique idempotency key constraint.
