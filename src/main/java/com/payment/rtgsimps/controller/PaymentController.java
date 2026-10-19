@@ -24,9 +24,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    /**
-     * Creates an IMPS payment.
-     */
+    
     @PostMapping("/imps")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PaymentResponse createImpsPayment(
@@ -45,9 +43,7 @@ public class PaymentController {
         );
     }
 
-    /**
-     * Creates an RTGS payment.
-     */
+    
     @PostMapping("/rtgs")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PaymentResponse createRtgsPayment(
@@ -66,9 +62,7 @@ public class PaymentController {
         );
     }
 
-    /**
-     * Retrieves a payment using its UUID.
-     */
+    
     @GetMapping("/{paymentId}")
     public PaymentResponse getPaymentById(
             @PathVariable UUID paymentId,
@@ -82,9 +76,7 @@ public class PaymentController {
         );
     }
 
-    /**
-     * Retrieves a payment using its reference.
-     */
+   
     @GetMapping("/reference/{reference}")
     public PaymentResponse getPaymentByReference(
             @PathVariable String reference,
@@ -98,9 +90,7 @@ public class PaymentController {
         );
     }
 
-    /**
-     * Extracts and validates the authenticated customer's identity.
-     */
+   
     private String getCustomerId(Authentication authentication) {
 
         if (authentication == null
