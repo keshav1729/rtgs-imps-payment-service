@@ -77,4 +77,4 @@ A durable payment dispatcher and a real bank-provider integration are not yet im
 - Balance management, payment approvals, compliance checks, reversal handling and full reconciliation are not implemented.
 - The project must be built and integration-tested before deployment.
 
-**This project is a development starter and is not certified or ready for real-money transactions.**
+
