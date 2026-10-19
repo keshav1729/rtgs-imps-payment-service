@@ -10,7 +10,7 @@ Java 21, Spring Boot 4.1.1, Maven, PostgreSQL, Flyway, Spring Security OAuth2 Re
 - Payment attempts and outbox event tables; optional Kafka outbox publisher starter.
 - OAuth2/JWT resource-server security outside local/test; local profile has a fixed test principal.
 - Webhook, audit and reconciliation database tables (workflow implementation remains to be completed).
-- Dockerfile, local PostgreSQL/Kafka Compose dependencies, Kubernetes Deployment/Service/HPA/Secret template.
+- Dockerfile, local PostgreSQL/Kafka Compose dependencies, Kubernetes Deployment/Service.
 - State-machine unit tests and production-readiness checklist.
 
 ## Known incomplete items that must not be mistaken for finished production features
