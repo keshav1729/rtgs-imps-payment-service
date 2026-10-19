@@ -43,14 +43,14 @@ public class OutboxEvent {
     protected OutboxEvent() {
     }
 
-    // Constructor for creating a new outbox event
+    
     public OutboxEvent(UUID aggregateId, String eventType, String payload) {
         this.aggregateId = aggregateId;
         this.eventType = eventType;
         this.payload = payload;
     }
 
-    // Getters
+    
 
     public UUID getId() {
         return id;
