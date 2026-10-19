@@ -68,12 +68,12 @@ public class OutboxEvent {
         return publishedAt;
     }
 
-    // Marks the event as successfully published
+    
     public void markPublished() {
         this.publishedAt = Instant.now();
     }
 
-    // Records a failed publishing attempt
+    
     public void recordFailure(String error) {
         this.attempts++;
 
