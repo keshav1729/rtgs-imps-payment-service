@@ -1,1 +1,4 @@
-package com.payment.rtgsimps.domain; public enum PaymentMode { IMPS, RTGS }
+package com.payment.rtgsimps.domain;
+public enum PaymentMode { 
+  IMPS, RTGS 
+}
