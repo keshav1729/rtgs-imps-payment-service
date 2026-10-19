@@ -64,30 +64,6 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleValidationErrors(
-            MethodArgumentNotValidException exception
-    ) {
-        Map<String, String> validationErrors =
-                exception.getBindingResult()
-                        .getFieldErrors()
-                        .stream()
-                        .collect(Collectors.toMap(
-                                error -> error.getField(),
-                                error -> Objects.toString(
-                                        error.getDefaultMessage(),
-                                        "Invalid value"
-                                ),
-                                (firstError, secondError) -> firstError
-                        ));
-
-        return createErrorResponse(
-                HttpStatus.BAD_REQUEST,
-                "Validation failed",
-                validationErrors
-        );
-    }
-
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ApiError> handleIllegalState(
             IllegalStateException exception
