@@ -1,8 +1,44 @@
 package com.payment.rtgsimps.provider;
-import com.payment.rtgsimps.domain.*;import org.springframework.context.annotation.Profile;import org.springframework.stereotype.Component;import java.util.UUID;
-/** LOCAL DEMO ONLY. Does not move money. */
-@Component @Profile({"local","test"}) public class MockBankTransferProvider implements BankTransferProvider {
- public String providerName(){return "mock-provider";}
- public ProviderOutcome submit(Payment p){return new ProviderOutcome(PaymentStatus.SUCCESS,"MOCK-"+UUID.randomUUID(),null,null);}
- public ProviderOutcome inquire(Payment p){return new ProviderOutcome(p.getStatus(),p.getProviderReference(),null,null);}
+
+import com.payment.rtgsimps.domain.Payment;
+import com.payment.rtgsimps.domain.PaymentStatus;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
+
+@Component
+@Profile({"local", "test"})
+public class MockBankTransferProvider implements BankTransferProvider {
+
+    @Override
+    public String providerName() {
+        return "mock-provider";
+    }
+
+    @Override
+    public ProviderOutcome submit(Payment payment) {
+
+        String mockProviderReference =
+                "MOCK-" + UUID.randomUUID();
+
+        return new ProviderOutcome(
+                PaymentStatus.SUCCESS,
+                mockProviderReference,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public ProviderOutcome inquire(Payment payment) {
+
+        return new ProviderOutcome(
+                payment.getStatus(),
+                payment.getProviderReference(),
+                null,
+                null
+        );
+    }
 }
