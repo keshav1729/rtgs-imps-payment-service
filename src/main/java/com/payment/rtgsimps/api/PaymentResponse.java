@@ -16,7 +16,6 @@ public record PaymentResponse(
         String currency,
         PaymentStatus status,
         String providerReference,
-        String failureCode,
         Instant createdAt,
         Instant updatedAt
 ) {
@@ -31,7 +30,6 @@ public record PaymentResponse(
                 payment.getCurrency(),
                 payment.getStatus(),
                 payment.getProviderReference(),
-                payment.getFailureCode(),
                 payment.getCreatedAt(),
                 payment.getUpdatedAt()
         );
