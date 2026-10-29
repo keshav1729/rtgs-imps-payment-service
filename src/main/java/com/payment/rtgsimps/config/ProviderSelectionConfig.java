@@ -12,10 +12,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class ProviderSelectionConfig {
 
-    /**
-     * Registers a fallback bank transfer provider when neither
-     * the "local" nor the "test" profile is active.
-     */
+    
     @Bean
     @Profile("!local & !test")
     public BankTransferProvider unconfiguredProvider() {
