@@ -26,10 +26,8 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    /**
-     * Production security configuration.
-     *
-     * Active when neither the "local" nor "test" profile is enabled.
+    /*
+     * Production security configuration. Active when neither the "local" nor "test" profile is enabled.
      */
     @Bean
     @Profile("!local & !test")
@@ -64,11 +62,8 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * Local and test security configuration.
-     *
-     * All requests are permitted, and a fixed local customer principal
-     * is added to the SecurityContext for development and testing.
+    /*
+      Local and test security configuration. All requests are permitted, and a fixed local customer principal is added to the SecurityContext for development and testing.
      */
     @Bean
     @Profile({"local", "test"})
