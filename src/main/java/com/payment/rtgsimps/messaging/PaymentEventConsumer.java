@@ -11,5 +11,6 @@ public class PaymentEventConsumer {
             groupId = "${spring.kafka.consumer.group-id:rtgs-imps-service}"
     )
     public void consume(String payload) {
+        log.info("Received payment event: {}", payload);
     }
 }
