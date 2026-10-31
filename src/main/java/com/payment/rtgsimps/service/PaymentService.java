@@ -2,7 +2,7 @@
 package com.payment.rtgsimps.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import com.payment.rtgsimps.api.*;
 import com.payment.rtgsimps.domain.*;
@@ -26,20 +26,17 @@ public class PaymentService {
  private final PaymentRepository payments;
  private final OutboxEventRepository outbox;
  private final BankTransferProvider provider;
- private final ObjectMapper mapper;
  private final PaymentResultService resultService;
 
  public PaymentService(
          PaymentRepository payments,
          OutboxEventRepository outbox,
          BankTransferProvider provider,
-         ObjectMapper mapper,
          PaymentResultService resultService) {
 
   this.payments = payments;
   this.outbox = outbox;
   this.provider = provider;
-  this.mapper = mapper;
   this.resultService = resultService;
  }
 
@@ -170,17 +167,6 @@ public class PaymentService {
           provider.providerName(),
           outcome
   );
- }
-
- private String json(Object value) {
-  try {
-   return mapper.writeValueAsString(value);
-  } catch (JsonProcessingException ex) {
-   throw new IllegalStateException(
-           "Event serialization failed",
-           ex
-   );
-  }
  }
 
  private String hash(String value) {
